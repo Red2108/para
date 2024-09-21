@@ -41,17 +41,17 @@ audioPrincipal.addEventListener('play', () => {
 // Sincronizar las letras con la canción
 var lyricsData = [
     { text: "Asi que voy a amarte cada noche...", time: 0 },
-    { text: "como si fuera la ultima noche.", time: 2 }, // Ajusta estos tiempos
-    { text: "Si el mundo se acabara...", time: 5 }, 
-    { text: "quisiera estar...", time: 8 },
-    { text: "A tu lado.", time: 10 },
-    { text: "Si la fiesta se terminara...", time: 14 },
-    { text: "y nuestro tiempo en la tierra...", time: 16 },
-    { text: "se acabara.", time: 19 },
-    { text: "Quisiera abrazarte...", time: 23 },
-    { text: "Solo por un momento🥺", time: 25 },
-    { text: "Y morir", time: 27 },
-    { text: "con una sonrisa.🥰", time: 30 },
+    { text: "como si fuera la ultima noche.", time: 2.5 }, // Ajustado
+    { text: "Si el mundo se acabara...", time: 5.5 }, // Ajustado
+    { text: "quisiera estar...", time: 9 }, // Ajustado
+    { text: "A tu lado.", time: 11 }, // Ajustado
+    { text: "Si la fiesta se terminara...", time: 15 }, // Ajustado
+    { text: "y nuestro tiempo en la tierra...", time: 17 }, // Ajustado
+    { text: "se acabara.", time: 20 }, // Ajustado
+    { text: "Quisiera abrazarte...", time: 24 }, // Ajustado
+    { text: "Solo por un momento🥺", time: 26 }, // Ajustado
+    { text: "Y morir", time: 28 }, // Ajustado
+    { text: "con una sonrisa.🥰", time: 31 }, // Ajustado
 ];
 
 // Animar las letras
