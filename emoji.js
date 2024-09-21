@@ -58,7 +58,7 @@ var lyricsData = [
 function updateLyrics() {
     var time = Math.floor(audioPrincipal.currentTime);
     var currentLine = lyricsData.find(
-        (line) => time >= line.time && time < line.time + 4 // Velocidad igual a la que pediste
+        (line) => time >= line.time && time < line.time + 4 // Copiado de tu ejemplo
     );
 
     if (currentLine) {
@@ -76,7 +76,7 @@ function updateLyrics() {
     }
 }
 
-// Cambié a 500 milisegundos para mayor frecuencia de actualización
+// Actualización cada 500 milisegundos
 setInterval(updateLyrics, 500);
 
 // Función para ocultar el título después de 216 segundos
