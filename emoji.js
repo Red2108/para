@@ -35,7 +35,7 @@ audioPrincipal.addEventListener('play', () => {
 
 // Sincronizar las letras con la canción
 var lyricsData = [
-    { text: "hola", time: 1 },
+    { text: "buenas", time: 1 },
     { text: "como si fuera la ultima noche", time: 3 },
     { text: "Si el mundo se acabara...", time: 7 },
     { text: "quisiera estar...", time: 10 },
