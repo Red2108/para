@@ -35,6 +35,12 @@ audioOculto.play().catch((error) => {
     console.error("Error al reproducir el audio oculto:", error);
 });
 
+// Event listener para asegurarte de que no se repita
+audioOculto.addEventListener('ended', () => {
+    audioOculto.pause();
+    audioOculto.currentTime = 0; // Reinicia el tiempo, si es necesario
+});
+
 // Datos de las letras
 var lyricsData = [
     { text: "Asi que voy a amarte cada noche...", time: 1 },
