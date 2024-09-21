@@ -56,7 +56,7 @@ function updateLyrics() {
 }
 
 // Cambié a 300 milisegundos para mayor frecuencia de actualización
-setInterval(updateLyrics, 300);
+setInterval(updateLyrics, 500);
 
 // Función para ocultar el título después de 216 segundos
 function ocultarTitulo() {
