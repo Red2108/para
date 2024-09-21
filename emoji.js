@@ -2,7 +2,7 @@
 
 // Seleccionamos el elemento de audio y el emoji
 const audio = document.getElementById('miAudio');
-const hiddenAudio = document.getElementById('hiddenAudio'); // Asegúrate de tener el audio oculto en el HTML
+const hiddenAudio = document.getElementById('hiddenAudio');
 const lyrics = document.querySelector("#lyrics");
 const playButton = document.getElementById('playAudio');
 
@@ -13,15 +13,16 @@ audio.volume = 1.0; // Valor entre 0.0 (silencio) y 1.0 (máximo)
 playButton.addEventListener('click', () => {
     if (audio.paused) {
         audio.play(); // Reproduce el audio principal
-        hiddenAudio.pause(); // Pausa el audio oculto
+        hiddenAudio.pause(); // Asegúrate de que el audio oculto se pause
     } else {
         audio.pause(); // Pausa el audio principal
+        hiddenAudio.pause(); // También pausa el audio oculto
     }
 });
 
 // Array de objetos que contiene cada línea y su tiempo de aparición en segundos
 var lyricsData = [
-    { text: "Asi que voy a amarte cada noche.", time: 0 },
+    { text: "Asi que voy a amarte cada noche..", time: 0 },
     { text: "como si fuera la ultima noche.", time: 2 },
     { text: "Si el mundo se acabara...", time: 5 },
     { text: "quisiera estar...", time: 8 },
