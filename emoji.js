@@ -1,20 +1,41 @@
 // script.js
 
-// Seleccionamos el elemento de audio y el emoji
-const audio = document.getElementById('miAudio');
-const lyrics = document.querySelector("#lyrics");
+// Seleccionamos los elementos de audio y el botón
+const audioOculto = document.getElementById('audioOculto');
+const audioPrincipal = document.getElementById('miAudio');
 const playButton = document.getElementById('playAudio');
+const lyrics = document.querySelector("#lyrics");
 
-// Sincronizar las letras con la canción
-audio.volume = 1.0; // Valor entre 0.0 (silencio) y 1.0 (máximo)
+// Configuración inicial
+audioOculto.volume = 1.0; // Volumen de la música oculta
+audioPrincipal.volume = 1.0; // Volumen de la música principal
 
-// Agregamos un evento de clic al emoji
+// Reproduce la música oculta al cargar la página
+audioOculto.play().catch((error) => {
+    console.error("Error al reproducir el audio oculto:", error);
+});
+
+// Evento para pausar la música oculta al finalizar
+audioOculto.addEventListener('ended', () => {
+    audioOculto.pause();
+    audioOculto.currentTime = 0; // Reinicia el tiempo
+});
+
+// Evento para el botón del corazón
 playButton.addEventListener('click', () => {
-    if (audio.paused) {
-        audio.play(); // Reproduce el audio
+    if (audioPrincipal.paused) {
+        audioPrincipal.play(); // Reproduce la música principal
+        audioOculto.pause(); // Pausa la música oculta
+        audioOculto.currentTime = 0; // Reinicia la música oculta
     } else {
-        audio.pause(); // Pausa el audio
+        audioPrincipal.pause(); // Pausa la música principal
     }
+});
+
+// Pausa la música oculta al iniciar la música principal
+audioPrincipal.addEventListener('play', () => {
+    audioOculto.pause();
+    audioOculto.currentTime = 0; // Reinicia la música oculta
 });
 
 // Array de objetos que contiene cada línea y su tiempo de aparición en segundos
