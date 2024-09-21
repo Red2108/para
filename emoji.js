@@ -1,23 +1,44 @@
 // script.js
 
-// Seleccionamos el elemento de audio y el emoji
-const audio = document.getElementById('miAudio');
-var lyrics = document.querySelector("#lyrics");
+// Seleccionamos los elementos de audio y el botón
+const audioOculto = document.getElementById('audioOculto');
+const audioPrincipal = document.getElementById('miAudio');
 const playButton = document.getElementById('playAudio');
+const lyrics = document.querySelector("#lyrics");
 
-// Sincronizar las letras con la canción
-audio.volume = 1.0; // Valor entre 0.0 (silencio) y 1.0 (máximo)
+// Configuración inicial
+audioOculto.volume = 1.0; // Volumen de la música oculta
+audioPrincipal.volume = 1.0; // Volumen de la música principal
 
-// Agregamos un evento de clic al emoji
+// Reproduce la música oculta al cargar la página
+audioOculto.play().catch((error) => {
+    console.error("Error al reproducir el audio oculto:", error);
+});
+
+// Evento para pausar la música oculta al finalizar
+audioOculto.addEventListener('ended', () => {
+    audioOculto.pause();
+    audioOculto.currentTime = 0; // Reinicia el tiempo
+});
+
+// Evento para el botón del corazón
 playButton.addEventListener('click', () => {
-    if (audio.paused) {
-        audio.play(); // Reproduce el audio
+    if (audioPrincipal.paused) {
+        audioPrincipal.play(); // Reproduce la música principal
+        audioOculto.pause(); // Pausa la música oculta
+        audioOculto.currentTime = 0; // Reinicia la música oculta
     } else {
-        audio.pause(); // Pausa el audio
+        audioPrincipal.pause(); // Pausa la música principal
     }
 });
 
-// Array de objetos que contiene cada línea y su tiempo de aparición en segundos
+// Pausa la música oculta al iniciar la música principal
+audioPrincipal.addEventListener('play', () => {
+    audioOculto.pause();
+    audioOculto.currentTime = 0; // Reinicia la música oculta
+});
+
+// Sincronizar las letras con la canción
 var lyricsData = [
     { text: "Asi que voy a amarte cada noche...", time: 0 },
     { text: "como si fuera la ultima noche.", time: 2 },
@@ -35,13 +56,13 @@ var lyricsData = [
 
 // Animar las letras
 function updateLyrics() {
-    var time = Math.floor(audio.currentTime);
+    var time = Math.floor(audioPrincipal.currentTime);
     var currentLine = lyricsData.find(
         (line) => time >= line.time && time < line.time + 4
     );
 
     if (currentLine) {
-        var fadeInDuration = 0.1; // Duración del efecto de aparición en segundos
+        var fadeInDuration = 0.1; // Duración del efecto de aparición
         var opacity = Math.min(1, (time - currentLine.time) / fadeInDuration);
 
         lyrics.style.opacity = opacity;
@@ -52,7 +73,6 @@ function updateLyrics() {
     }
 }
 
-// Actualiza las letras cada 500 milisegundos
 setInterval(updateLyrics, 500);
 
 // Función para ocultar el título después de 216 segundos
@@ -64,5 +84,5 @@ function ocultarTitulo() {
     }, 500);
 }
 
-// Llama a la función después de 216 segundos (216,000 milisegundos)
+// Llama a la función después de 216 segundos
 setTimeout(ocultarTitulo, 216000);
