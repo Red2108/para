@@ -1,51 +1,65 @@
 // script.js
 
-// Seleccionamos los elementos de audio y el emoji
-const audio = document.getElementById('miAudio');
-const hiddenAudio = document.getElementById('hiddenAudio');
-const lyrics = document.querySelector("#lyrics");
+// Seleccionamos los elementos de audio y el botón
+const audioOculto = document.getElementById('audioOculto');
+const audioPrincipal = document.getElementById('miAudio');
 const playButton = document.getElementById('playAudio');
+const lyrics = document.querySelector("#lyrics");
 
 // Configuración inicial
-audio.volume = 1.0; // Valor entre 0.0 (silencio) y 1.0 (máximo)
+audioOculto.volume = 1.0;
+audioPrincipal.volume = 1.0;
 
-// Agregamos un evento de clic al emoji
+// Evento para pausar la música oculta al finalizar
+audioOculto.addEventListener('ended', () => {
+    audioOculto.pause();
+    audioOculto.currentTime = 0; // Reinicia el tiempo
+});
+
+// Evento para el botón del corazón
 playButton.addEventListener('click', () => {
-    if (audio.paused) {
-        audio.play(); // Reproduce el audio principal
-        hiddenAudio.pause(); // Asegúrate de que el audio oculto se pause
+    if (audioPrincipal.paused) {
+        audioPrincipal.play(); // Reproduce la música principal
+        audioOculto.pause(); // Pausa la música oculta
+        audioOculto.currentTime = 0; // Reinicia la música oculta
     } else {
-        audio.pause(); // Pausa el audio principal
-        hiddenAudio.pause(); // También pausa el audio oculto
+        audioPrincipal.pause(); // Pausa la música principal
     }
 });
 
-// Array de objetos que contiene cada línea y su tiempo de aparición en segundos
+// Pausa la música oculta al iniciar la música principal
+audioPrincipal.addEventListener('play', () => {
+    audioOculto.pause();
+    audioOculto.currentTime = 0; // Reinicia la música oculta
+});
+
+// Sincronizar las letras con la canción
 var lyricsData = [
-    { text: "Asi que voy a amarte cada noche...", time: 0 },
-    { text: "como si fuera la ultima noche.", time: 1.5 },
-    { text: "Si el mundo se acabara...", time: 3 },
-    { text: "quisiera estar...", time: 5.5 },
-    { text: "A tu lado.", time: 7.5 },
-    { text: "Si la fiesta se terminara...", time: 10 },
-    { text: "y nuestro tiempo en la tierra...", time: 12 },
-    { text: "se acabara.", time: 15 },
-    { text: "Quisiera abrazarte...", time: 18 },
-    { text: "Solo por un momento", time: 20 },
-    { text: "Y morir", time: 22 },
-    { text: "con una sonrisa.", time: 24 },
+    { text: "hola", time: 1 },
+    { text: "como si fuera la ultima noche", time: 3 },
+    { text: "Si el mundo se acabara...", time: 7 },
+    { text: "quisiera estar...", time: 10 },
+    { text: "A tu lado.", time: 12 },
+    { text: "Si la fiesta se terminara...", time: 17 },
+    { text: "y nuestro tiempo en la tierra...", time: 19 },
+    { text: "se acabara", time: 22 },
+    { text: "Quisiera abrazarte...", time: 26 },
+    { text: "Solo por un momento", time: 28 },
+    { text: "Y morir", time: 30 },
+    { text: "con una sonrisa...", time: 33 },
 ];
 
 // Animar las letras
 function updateLyrics() {
-    var time = Math.floor(audio.currentTime);
+    var time = Math.floor(audioPrincipal.currentTime);
     var currentLine = lyricsData.find(
-        (line) => time >= line.time && time < line.time + 2
+        (line) => time >= line.time && time < line.time + 6
     );
 
     if (currentLine) {
-        var fadeInDuration = 0.1; // Duración del efecto de aparición en segundos
+        var fadeInDuration = 0.1;
         var opacity = Math.min(1, (time - currentLine.time) / fadeInDuration);
+
         lyrics.style.opacity = opacity;
         lyrics.innerHTML = currentLine.text;
     } else {
@@ -54,13 +68,12 @@ function updateLyrics() {
     }
 }
 
-// Actualizar las letras cada 200 ms
-setInterval(updateLyrics, 200);
+setInterval(updateLyrics, 1000);
 
 // Función para ocultar el título después de 216 segundos
 function ocultarTitulo() {
     var titulo = document.querySelector(".titulo");
-    titulo.style.animation = "fadeOut 0.4s ease-in-out forwards"; 
+    titulo.style.animation = "fadeOut 0.4s ease-in-out forwards";
     setTimeout(function () {
         titulo.style.display = "none";
     }, 500);
