@@ -41,36 +41,33 @@ audioPrincipal.addEventListener('play', () => {
 // Sincronizar las letras con la canción
 var lyricsData = [
     { text: "Asi que voy a amarte cada noche...", time: 0 },
-    { text: "como si fuera la ultima noche.", time: 1.5 },
-    { text: "Si el mundo se acabara...", time: 3 },
-    { text: "quisiera estar...", time: 5.5 },
-    { text: "A tu lado.", time: 7.5 },
-    { text: "Si la fiesta se terminara...", time: 10 },
-    { text: "y nuestro tiempo en la tierra...", time: 12 },
-    { text: "se acabara.", time: 15 },
-    { text: "Quisiera abrazarte...", time: 18 },
-    { text: "Solo por un momento🥺", time: 20 },
-    { text: "Y morir", time: 22 },
-    { text: "con una sonrisa.🥰", time: 24 },
+    { text: "como si fuera la ultima noche.", time: 2 }, // Ajusta estos tiempos
+    { text: "Si el mundo se acabara...", time: 5 }, 
+    { text: "quisiera estar...", time: 8 },
+    { text: "A tu lado.", time: 10 },
+    { text: "Si la fiesta se terminara...", time: 14 },
+    { text: "y nuestro tiempo en la tierra...", time: 16 },
+    { text: "se acabara.", time: 19 },
+    { text: "Quisiera abrazarte...", time: 23 },
+    { text: "Solo por un momento🥺", time: 25 },
+    { text: "Y morir", time: 27 },
+    { text: "con una sonrisa.🥰", time: 30 },
 ];
 
 // Animar las letras
 function updateLyrics() {
     var time = Math.floor(audioPrincipal.currentTime);
     var currentLine = lyricsData.find(
-        (line) => time >= line.time && time < line.time + 4 // Copiado de tu ejemplo
+        (line) => time >= line.time && time < line.time + 4
     );
 
     if (currentLine) {
-        // Calcula la opacidad basada en el tiempo en la línea actual
-        var fadeInDuration = 0.1; // Duración del efecto de aparición en segundos
+        var fadeInDuration = 0.1; 
         var opacity = Math.min(1, (time - currentLine.time) / fadeInDuration);
-
-        // Aplica el efecto de aparición
+        
         lyrics.style.opacity = opacity;
         lyrics.innerHTML = currentLine.text;
     } else {
-        // Restablece la opacidad y el contenido si no hay una línea actual
         lyrics.style.opacity = 0;
         lyrics.innerHTML = "";
     }
@@ -82,10 +79,10 @@ setInterval(updateLyrics, 500);
 // Función para ocultar el título después de 216 segundos
 function ocultarTitulo() {
     var titulo = document.querySelector(".titulo");
-    titulo.style.animation = "fadeOut 0.4s ease-in-out forwards"; // Duración y función de temporización de la desaparición
+    titulo.style.animation = "fadeOut 0.4s ease-in-out forwards"; 
     setTimeout(function () {
         titulo.style.display = "none";
-    }, 500); // Espera antes de ocultar completamente
+    }, 500); 
 }
 
 // Llama a la función después de 216 segundos
