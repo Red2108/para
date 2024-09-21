@@ -5,7 +5,7 @@ const audio = document.getElementById('miAudio');
 const lyrics = document.querySelector("#lyrics");
 const playButton = document.getElementById('playAudio');
 
-// Configuración inicial
+// Sincronizar las letras con la canción
 audio.volume = 1.0; // Valor entre 0.0 (silencio) y 1.0 (máximo)
 
 // Agregamos un evento de clic al emoji
@@ -19,7 +19,7 @@ playButton.addEventListener('click', () => {
 
 // Array de objetos que contiene cada línea y su tiempo de aparición en segundos
 var lyricsData = [
-    { text: "Asi que voy a amarte cada noche...", time: 0.01 },
+    { text: "Asi que voy a amarte cada noche...", time: 0 },
     { text: "como si fuera la ultima noche.", time: 2 },
     { text: "Si el mundo se acabara...", time: 5 },
     { text: "quisiera estar...", time: 8 },
@@ -37,7 +37,7 @@ var lyricsData = [
 function updateLyrics() {
     var time = Math.floor(audio.currentTime);
     var currentLine = lyricsData.find(
-        (line) => time >= line.time && time < line.time + 3 // Cambié a 3
+        (line) => time >= line.time && time < line.time + 4 // Mantener en 4 para la duración de las líneas
     );
 
     if (currentLine) {
@@ -55,17 +55,18 @@ function updateLyrics() {
     }
 }
 
-// Cambié a 300 milisegundos para mayor frecuencia de actualización
+// Mantener la frecuencia de actualización en 500 ms
 setInterval(updateLyrics, 500);
 
 // Función para ocultar el título después de 216 segundos
 function ocultarTitulo() {
     var titulo = document.querySelector(".titulo");
-    titulo.style.animation = "fadeOut 0.4s ease-in-out forwards"; /* Duración y función de temporización de la desaparición */
+    titulo.style.animation =
+        "fadeOut 0.4s ease-in-out forwards"; // Duración y función de temporización de la desaparición
     setTimeout(function () {
         titulo.style.display = "none";
     }, 500); // Espera antes de ocultar completamente
 }
 
-// Llama a la función después de 216 segundos
+// Llama a la función después de 216 segundos (216,000 milisegundos)
 setTimeout(ocultarTitulo, 216000);
