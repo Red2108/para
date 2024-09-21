@@ -13,13 +13,26 @@ audioOculto.play().catch((error) => {
 // Configuramos el volumen de la música principal
 audio.volume = 1.0; // Valor entre 0.0 (silencio) y 1.0 (máximo)
 
+// Función para pausar el audio oculto
+function pausarAudioOculto() {
+    audioOculto.pause();
+    audioOculto.currentTime = 0; // Reinicia el tiempo si deseas
+}
+
 // Agregamos un evento de clic al botón del corazón
 playButton.addEventListener('click', () => {
     if (audio.paused) {
         audio.play(); // Reproduce la música principal
+        pausarAudioOculto(); // Pausa la música oculta
     } else {
         audio.pause(); // Pausa la música principal
+        pausarAudioOculto(); // Pausa también la música oculta si se pausa la principal
     }
+});
+
+// Revisa si la música principal ha terminado
+audio.addEventListener('ended', () => {
+    pausarAudioOculto(); // Pausa la música oculta cuando termina la principal
 });
 
 // Datos de las letras
