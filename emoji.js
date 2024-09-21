@@ -19,7 +19,7 @@ playButton.addEventListener('click', () => {
 
 // Array de objetos que contiene cada línea y su tiempo de aparición en segundos
 var lyricsData = [
-    { text: "Asi que voy a amarte cada noche...", time: 0 },
+    { text: "Asi que voy a amarte cada noche...", time: 0.01 },
     { text: "como si fuera la ultima noche.", time: 2 },
     { text: "Si el mundo se acabara...", time: 5 },
     { text: "quisiera estar...", time: 8 },
