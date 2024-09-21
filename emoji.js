@@ -5,18 +5,13 @@ const audio = document.getElementById('miAudio'); // Música principal
 const audioOculto = document.getElementById('audioOculto'); // Música oculta
 const playButton = document.getElementById('playAudio');
 
-// Reproduce el audio oculto automáticamente al cargar la página
-audioOculto.play().catch((error) => {
-    console.error("Error al reproducir el audio oculto:", error);
-});
-
 // Configuramos el volumen de la música principal
 audio.volume = 1.0; // Valor entre 0.0 (silencio) y 1.0 (máximo)
 
 // Función para pausar el audio oculto
 function pausarAudioOculto() {
     audioOculto.pause();
-    audioOculto.currentTime = 0; // Reinicia el tiempo si deseas
+    audioOculto.currentTime = 0; // Reinicia el tiempo si lo deseas
 }
 
 // Agregamos un evento de clic al botón del corazón
@@ -26,13 +21,18 @@ playButton.addEventListener('click', () => {
         pausarAudioOculto(); // Pausa la música oculta
     } else {
         audio.pause(); // Pausa la música principal
-        pausarAudioOculto(); // Pausa también la música oculta si se pausa la principal
+        pausarAudioOculto(); // También pausa la música oculta
     }
 });
 
 // Revisa si la música principal ha terminado
 audio.addEventListener('ended', () => {
     pausarAudioOculto(); // Pausa la música oculta cuando termina la principal
+});
+
+// Carga y reproduce la música oculta al cargar la página
+audioOculto.play().catch((error) => {
+    console.error("Error al reproducir el audio oculto:", error);
 });
 
 // Datos de las letras
