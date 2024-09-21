@@ -49,9 +49,9 @@ var lyricsData = [
     { text: "y nuestro tiempo en la tierra...", time: 17 },
     { text: "se acabara.", time: 20 },
     { text: "Quisiera abrazarte...", time: 24 },
-    { text: "Solo por un momento🥺", time: 26 },
+    { text: "Solo por un momento", time: 26 },
     { text: "Y morir", time: 28 },
-    { text: "con una sonrisa.🥰", time: 31 },
+    { text: "con una sonrisa.", time: 31 },
 ];
 
 // Animar las letras
