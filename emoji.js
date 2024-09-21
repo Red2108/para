@@ -58,16 +58,19 @@ var lyricsData = [
 function updateLyrics() {
     var time = Math.floor(audioPrincipal.currentTime);
     var currentLine = lyricsData.find(
-        (line) => time >= line.time && time < line.time + 2 // Cambiado a 2 para velocidad
+        (line) => time >= line.time && time < line.time + 4 // Velocidad igual a la que pediste
     );
 
     if (currentLine) {
+        // Calcula la opacidad basada en el tiempo en la línea actual
         var fadeInDuration = 0.1; // Duración del efecto de aparición en segundos
         var opacity = Math.min(1, (time - currentLine.time) / fadeInDuration);
 
+        // Aplica el efecto de aparición
         lyrics.style.opacity = opacity;
         lyrics.innerHTML = currentLine.text;
     } else {
+        // Restablece la opacidad y el contenido si no hay una línea actual
         lyrics.style.opacity = 0;
         lyrics.innerHTML = "";
     }
@@ -79,10 +82,10 @@ setInterval(updateLyrics, 500);
 // Función para ocultar el título después de 216 segundos
 function ocultarTitulo() {
     var titulo = document.querySelector(".titulo");
-    titulo.style.animation = "fadeOut 0.4s ease-in-out forwards";
+    titulo.style.animation = "fadeOut 0.4s ease-in-out forwards"; // Duración y función de temporización de la desaparición
     setTimeout(function () {
         titulo.style.display = "none";
-    }, 500);
+    }, 500); // Espera antes de ocultar completamente
 }
 
 // Llama a la función después de 216 segundos
