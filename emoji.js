@@ -1,47 +1,44 @@
-// script.js
+// emoji.js
 
-// Seleccionamos los elementos de audio y el emoji
-const audio = document.getElementById('miAudio'); // Música principal
-const audioOculto = document.getElementById('audioOculto'); // Música oculta
+// Seleccionamos los elementos de audio y el botón
+const audioOculto = document.getElementById('audioOculto');
+const audioPrincipal = document.getElementById('miAudio');
 const playButton = document.getElementById('playAudio');
+const lyrics = document.querySelector("#lyrics");
 
-// Configuramos el volumen de la música principal
-audio.volume = 1.0; // Valor entre 0.0 (silencio) y 1.0 (máximo)
+// Configuración inicial
+audioOculto.volume = 1.0; // Volumen de la música oculta
+audioPrincipal.volume = 1.0; // Volumen de la música principal
 
-// Función para pausar el audio oculto
-function pausarAudioOculto() {
-    audioOculto.pause();
-    audioOculto.currentTime = 0; // Reinicia el tiempo si lo deseas
-}
-
-// Agregamos un evento de clic al botón del corazón
-playButton.addEventListener('click', () => {
-    if (audio.paused) {
-        audio.play(); // Reproduce la música principal
-        pausarAudioOculto(); // Pausa la música oculta
-    } else {
-        audio.pause(); // Pausa la música principal
-        pausarAudioOculto(); // También pausa la música oculta
-    }
-});
-
-// Revisa si la música principal ha terminado
-audio.addEventListener('ended', () => {
-    pausarAudioOculto(); // Pausa la música oculta cuando termina la principal
-});
-
-// Carga y reproduce la música oculta al cargar la página
+// Reproduce la música oculta al cargar la página
 audioOculto.play().catch((error) => {
     console.error("Error al reproducir el audio oculto:", error);
 });
 
-// Event listener para asegurarte de que no se repita
+// Evento para pausar la música oculta al finalizar
 audioOculto.addEventListener('ended', () => {
     audioOculto.pause();
-    audioOculto.currentTime = 0; // Reinicia el tiempo, si es necesario
+    audioOculto.currentTime = 0; // Reinicia el tiempo
 });
 
-// Datos de las letras
+// Evento para el botón del corazón
+playButton.addEventListener('click', () => {
+    if (audioPrincipal.paused) {
+        audioPrincipal.play(); // Reproduce la música principal
+        audioOculto.pause(); // Pausa la música oculta
+        audioOculto.currentTime = 0; // Reinicia la música oculta
+    } else {
+        audioPrincipal.pause(); // Pausa la música principal
+    }
+});
+
+// Pausa la música oculta al iniciar la música principal
+audioPrincipal.addEventListener('play', () => {
+    audioOculto.pause();
+    audioOculto.currentTime = 0; // Reinicia la música oculta
+});
+
+// Sincronizar las letras con la canción
 var lyricsData = [
     { text: "Asi que voy a amarte cada noche...", time: 1 },
     { text: "como si fuera la ultima noche", time: 3 },
@@ -59,14 +56,15 @@ var lyricsData = [
 
 // Animar las letras
 function updateLyrics() {
-    var time = Math.floor(audio.currentTime);
+    var time = Math.floor(audioPrincipal.currentTime);
     var currentLine = lyricsData.find(
-        (line) => time >= line.time && time < line.time + 4
+        (line) => time >= line.time && time < line.time + 6
     );
 
     if (currentLine) {
-        var fadeInDuration = 0.1;
+        var fadeInDuration = 0.1; // Duración del efecto de aparición en segundos
         var opacity = Math.min(1, (time - currentLine.time) / fadeInDuration);
+
         lyrics.style.opacity = opacity;
         lyrics.innerHTML = currentLine.text;
     } else {
@@ -75,7 +73,7 @@ function updateLyrics() {
     }
 }
 
-setInterval(updateLyrics, 500);
+setInterval(updateLyrics, 1000);
 
 // Función para ocultar el título después de 216 segundos
 function ocultarTitulo() {
@@ -83,7 +81,8 @@ function ocultarTitulo() {
     titulo.style.animation = "fadeOut 0.4s ease-in-out forwards";
     setTimeout(function () {
         titulo.style.display = "none";
-    }, 500);
+    }, 500); // Espera antes de ocultar completamente
 }
 
+// Llama a la función después de 216 segundos
 setTimeout(ocultarTitulo, 216000);
